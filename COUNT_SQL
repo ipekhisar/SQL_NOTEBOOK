@@ -1,0 +1,17 @@
+SELECT TOP (1000) [ITEM]
+      ,[CUSTOMER_NAME]
+  FROM [DENEME].[dbo].[Table_1]
+
+
+  --First, count the total number of orders in the table:
+SELECT COUNT(*) FROM Table_1
+
+--A customer might place multiple orders, now count the number of unique customers:
+SELECT COUNT(DISTINCT CUSTOMER_NAME) FROM Table_1
+
+--A customer might purchase an item multiple times, so to count the number of unique item purchased by each customer:
+SELECT
+COUNT(DISTINCT CASE WHEN CUSTOMER_NAME = 'ALEX' THEN ITEM END) AS BY_ALEX,
+COUNT(DISTINCT CASE WHEN CUSTOMER_NAME = 'BOB' THEN ITEM END) AS BY_BOB,
+COUNT(DISTINCT CASE WHEN CUSTOMER_NAME = 'jim' THEN ITEM END) AS BY_Jim
+from Table_1
