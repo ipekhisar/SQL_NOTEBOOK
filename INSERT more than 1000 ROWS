@@ -1,0 +1,31 @@
+--PROBLEM: The number of row value expressions in the INSERT statement exceeds the maximum allowed number of 1000 row values. 
+How can I insert 100000 rows in SQL Server?
+
+--SOLUTION: 
+
+CREATE TABLE customer_transactions (
+  customer_id INTEGER,
+  txn_date DATE,
+  txn_type VARCHAR(10),
+  txn_amount INTEGER
+)
+
+INSERT INTO customer_transactions
+  (customer_id, txn_date, txn_type, txn_amount)
+SELECT*FROM(
+VALUES
+ ('429', '2020-01-21', 'deposit', '82'),
+ ('155', '2020-01-10', 'deposit', '712'),
+ ('398', '2020-01-01', 'deposit', '196'),
+ ('255', '2020-01-14', 'deposit', '563'),
+ ('185', '2020-01-29', 'deposit', '626'),
+ ('309', '2020-01-13', 'deposit', '995'),
+ ('312', '2020-01-20', 'deposit', '485'),
+ ('376', '2020-01-03', 'deposit', '706'),
+ ('188', '2020-01-13', 'deposit', '601'),
+.
+.(more than 1000 column)
+.
+  ('189', '2020-02-06', 'purchase', '393'),
+  ('189', '2020-01-22', 'deposit', '302'),
+  ('189', '2020-01-27', 'withdrawal', '861')) AS temp1 ([customer_id], [txn_date], [txn_type], [txn_amount])
